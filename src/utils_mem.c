@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_mem.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:13:14 by bcanals-          #+#    #+#             */
-/*   Updated: 2025/06/26 13:24:02 by bcanals-         ###   ########.fr       */
+/*   Updated: 2026/06/14 19:13:34 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*ft_memset(void *s, int c, size_t n)
+static void	*ft_memset(void *s, int c, size_t n)
 {
 	size_t			i;
 	unsigned char	*ptr;
@@ -38,3 +38,20 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	ft_memset(rtrn, 0, nmemb * size);
 	return (rtrn);
 }
+
+void	cleanup(t_table *table)
+{
+	int	i;
+
+	free(table->id);
+	free(table->ini_t);
+	i = -1;
+	while (table->philos[++i])
+	{
+		free(table->philos[i]->my_time);
+		free(table->philos[i]);
+	}
+	free(table->philos);
+	free(table);
+}
+

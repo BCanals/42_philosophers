@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bizcru <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: becanals <becanals@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/18 17:30:42 by bizcru            #+#    #+#              #
-#    Updated: 2025/06/26 17:11:44 by bcanals-         ###   ########.fr        #
+#    Created: 2026/06/14 17:15:47 by becanals          #+#    #+#              #
+#    Updated: 2026/06/14 19:30:50 by becanals         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC_NAMES = main.c utils_mem.c utils_time.c
+SRC_NAMES = main.c utils_mem.c utils_time.c philo_life.c
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_NAMES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

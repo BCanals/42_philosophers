@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2025/06/26 22:36:50 by bcanals-         ###   ########.fr       */
+/*   Updated: 2026/06/14 19:37:54 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,19 @@ typedef struct s_philo
 	struct timeval	*my_time;
 }				t_philo;
 
-typedef struct s_fdata
+typedef struct s_table
 {
 	pthread_t		*id;
 	struct timeval	*ini_t;
 	t_philo			**philos;
-}				t_fdata;
+}				t_table;
 
 typedef	pthread_mutex_t t_mut;
 
 void			*ft_calloc(size_t nmemb, size_t size);
 unsigned int	elapsed(struct timeval *ini);
-void			set_now(struct timeval *now);
+void			cleanup(t_table *table);
+
+void			ph_behave(t_table *table);
 
 #endif
