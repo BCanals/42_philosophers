@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/06/14 19:38:13 by becanals         ###   ########.fr       */
+/*   Updated: 2026/07/19 19:28:38 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ t_philo	*philo_creator(int i);
 int	main(void)
 {
 	t_table	*table;
-	int		philos_num = 100;
-	int		i = -1;
+	int		i;
+	int		philos_num;
 
-	table = init_table(philos_num);
+	philos_num = 100;
+	if ((table = init_table(philos_num)) == NULL)
+		return (1);
+	i = -1;
 	while (++i < philos_num)
 		pthread_create(&table->id[i], NULL, (void *)&ph_behave, table);
 	i = -1;

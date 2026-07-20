@@ -6,12 +6,11 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:28:09 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/06/14 18:52:39 by becanals         ###   ########.fr       */
+/*   Updated: 2026/07/19 19:05:55 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 // Returns the elapsed time since the given timeval until now, in milisec
 

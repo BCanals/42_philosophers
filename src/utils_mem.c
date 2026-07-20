@@ -6,7 +6,7 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:13:14 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/06/14 19:13:34 by becanals         ###   ########.fr       */
+/*   Updated: 2026/07/19 19:07:13 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ void	cleanup(t_table *table)
 	free(table->philos);
 	free(table);
 }
-
