@@ -1,0 +1,24 @@
+
+
+MANDATORY:
+
+[ ] -> fer el cicle de vida dels philosophers
+[ ] -> parseig de l'imput de l'usuari
+[ ] -> pensar com gestionar la mort d'un philo i la coordinació amb els altres
+[ ] -> Bon testing
+[ ] -> Revisar cleanup
+[ ] -> fer el README
+[x] -> aprendre a gestionar un mutex
+[x] -> crear iterativament els mutex
+[x] -> veure com interactuen dos threads amb un mutex
+[x] -> Mirar com iniciar els threads alhora
+[x] -> pensar com coordinar l'inici dels philosphers
+[x] -> copiar ft_calloc de libft i posar-lo aquí
+
+
+
+BONUS:
+
+[ ] -> saber què és un semàfor
+[ ] -> copiar el create processes de minishell/pipex
+[ ] -> copiar el codi de la mandatory
