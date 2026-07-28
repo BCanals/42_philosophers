@@ -6,13 +6,13 @@
 #    By: becanals <becanals@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/14 17:15:47 by becanals          #+#    #+#              #
-#    Updated: 2026/06/14 19:30:50 by becanals         ###   ########.fr        #
+#    Updated: 2026/07/28 16:22:04 by bizcru           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC_NAMES = main.c utils_mem.c utils_time.c philo_life.c
+SRC_NAMES = main.c utils_mem.c utils_time.c philo_life.c constructors.c
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_NAMES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
