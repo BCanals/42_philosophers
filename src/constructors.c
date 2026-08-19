@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/07/28 17:05:26 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/08/09 21:07:27 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_table	*create_table(int philos_num)
 	table->status = LIVE;
 	if (!create_philos(table))
 			return (cleanup(table), NULL);
+	printf("time to sleep: %i\n", table->time_to_sleep);
+	printf("time to eat: %i\n", table->time_to_eat);
 	return (table);
 }
 
@@ -49,6 +51,8 @@ static int create_philos(t_table *table)
 		table->philos[i] = create_one_philo(i, table);
 		if (!table->philos[i])
 			return (0);
+		if (i % 2)
+			table->philos[i]->action = THINK;
 	}
 	return (1);
 }

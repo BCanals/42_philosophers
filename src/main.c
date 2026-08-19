@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/07/28 17:06:06 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/07/29 18:46:05 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	int		i;
 	int		philos_num;
 
-	philos_num = 4;
+	philos_num = 10;
 	table = create_table(philos_num);
 	if (table == NULL)
 		return (1);

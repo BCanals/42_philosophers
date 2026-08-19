@@ -4,10 +4,10 @@ MANDATORY:
 
 [ ] -> fer el cicle de vida dels philosophers
 [ ] -> parseig de l'imput de l'usuari
-[ ] -> pensar com gestionar la mort d'un philo i la coordinació amb els altres
+[ ] -> Comprovar el cleanup
 [ ] -> Bon testing
-[ ] -> Revisar cleanup
 [ ] -> fer el README
+[x] -> pensar com gestionar la mort d'un philo i la coordinació amb els altres
 [x] -> aprendre a gestionar un mutex
 [x] -> crear iterativament els mutex
 [x] -> veure com interactuen dos threads amb un mutex

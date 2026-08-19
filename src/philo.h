@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/07/28 17:05:53 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/07/29 15:47:14 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	pthread_t		*ids;
 	int				philos_num;
+	unsigned int	time_to_die;
+	unsigned int	time_to_eat;
+	unsigned int	time_to_sleep;
 	int				status;
+	pthread_t		*ids;
 	struct timeval	*ini_t;
 	t_philo			**philos;
 	pthread_mutex_t	start;
