@@ -6,7 +6,7 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:28:09 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/07/27 14:16:48 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/08/24 20:02:12 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 // Returns the elapsed time since the given timeval until now, in milisec
 
-unsigned int	elapsed(struct timeval *ini)
+unsigned int	elapsed(t_philo *philo)
 {
 	struct timeval	now;
 	unsigned int	sec;
 	unsigned int	msec;
+	struct timeval	*ini;
 
+	ini = philo->table->ini_t;
 	gettimeofday(&now, NULL);
 	sec = now.tv_sec - ini->tv_sec;
 	msec = (now.tv_usec - ini->tv_usec) / 1000;

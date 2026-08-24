@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/07/29 18:46:05 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/08/24 20:08:18 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	int		i;
 	int		philos_num;
 
-	printf("_____ BUILDING...  _______\n");
+	//printf("_____ BUILDING...  _______\n");
 	philos_num = 10;
 	table = create_table(philos_num);
 	if (table == NULL)
@@ -30,6 +30,8 @@ int	main(void)
 	while (++i < philos_num)
 		pthread_create(&table->ids[i], NULL, (void *)&ph_behave, table->philos[i]);
 	i = -1;
+	table->time_to_eat = 5000;
+	table->time_to_die = 15000;
 	gettimeofday(table->ini_t, NULL);
 	printf("______ START ! _____\n");
 	pthread_mutex_unlock(&table->start);

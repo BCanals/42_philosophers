@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 19:21:29 by becanals          #+#    #+#             */
-/*   Updated: 2026/07/29 17:53:17 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/08/24 20:08:29 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ph_behave(t_philo *me)
 
 void	ft_eat(t_philo *me)
 {
-	printf("%i - is eating\n", me->id);
+	printf("%i %i is eating\n", elapsed(me), me->id);
 	usleep(me->table->time_to_eat);
 	pthread_mutex_unlock(&me->table->forks[me->id]);
 	if (me->id == 0)
@@ -36,21 +36,28 @@ void	ft_eat(t_philo *me)
 
 void	ft_sleep(t_philo *me)
 {
-	printf("%i - is sleeping\n", me->id);
+	printf("%i %i is sleeping\n", elapsed(me), me->id);
 	usleep(me->table->time_to_sleep);
 	me->action = THINK;
-	
 }
 
 void	ft_think(t_philo *me)
 {
-	printf("%i - is thinking\n", me->id);
-	pthread_mutex_lock(&me->table->forks[me->id]);
-	printf("%i - has taken a fork\n", me->id);
+	printf("%i %i is thinking\n", elapsed(me), me->id);
+	if (me->id % 2)
+	{
+		pthread_mutex_lock(&me->table->forks[me->id]);
+		printf("%i %i has taken a fork\n", elapsed(me), me->id);
+	}
 	if (me->id == 0)
 		pthread_mutex_lock(&me->table->forks[me->table->philos_num - 1]);
 	else
 		pthread_mutex_lock(&me->table->forks[me->id - 1]);
-	printf("%i - has taken a fork\n", me->id);
+	printf("%i %i has taken a fork\n", elapsed(me), me->id);
+	if (!(me->id % 2))
+	{
+		pthread_mutex_lock(&me->table->forks[me->id]);
+		printf("%i %i has taken a fork\n", elapsed(me), me->id);
+	}
 	me->action = EAT;
 }

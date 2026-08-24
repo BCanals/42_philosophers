@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/07/29 15:47:14 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/08/24 20:40:23 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 
 # define LIVE 1
 # define STOP 0
+
+# define FREE 1
+# define TAKEN 0
 
 typedef struct s_philo t_philo;
 
@@ -57,7 +60,7 @@ typedef struct s_table
 typedef pthread_mutex_t	t_mut;
 
 void			*ft_calloc(size_t nmemb, size_t size);
-unsigned int	elapsed(struct timeval *ini);
+unsigned int	elapsed(t_philo *philo);
 void			cleanup(t_table *table);
 
 t_table			*create_table(int philos_num);
