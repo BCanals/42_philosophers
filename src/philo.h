@@ -51,6 +51,7 @@ typedef struct s_table
 	t_philo			**philos;
 	pthread_mutex_t	start;
 	pthread_mutex_t	*forks;
+	char		*forks_state;
 }				t_table;
 
 typedef pthread_mutex_t	t_mut;

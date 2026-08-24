@@ -21,6 +21,7 @@ int	main(void)
 	int		i;
 	int		philos_num;
 
+	printf("_____ BUILDING...  _______\n");
 	philos_num = 10;
 	table = create_table(philos_num);
 	if (table == NULL)
@@ -30,6 +31,7 @@ int	main(void)
 		pthread_create(&table->ids[i], NULL, (void *)&ph_behave, table->philos[i]);
 	i = -1;
 	gettimeofday(table->ini_t, NULL);
+	printf("______ START ! _____\n");
 	pthread_mutex_unlock(&table->start);
 	while (++i < philos_num)
 		pthread_join(table->ids[i], NULL);

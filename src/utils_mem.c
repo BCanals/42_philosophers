@@ -48,6 +48,7 @@ void	cleanup(t_table *table)
 	free(table->ids);
 	free(table->ini_t);
 	free(table->forks);
+	free(table->forks_state);
 	i = -1;
 	while (table->philos[++i])
 	{

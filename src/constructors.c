@@ -28,7 +28,8 @@ t_table	*create_table(int philos_num)
 	table->ids = ft_calloc(philos_num, sizeof(pthread_t));
 	table->philos = ft_calloc(philos_num + 1, sizeof(t_philo));
 	table->forks = ft_calloc(philos_num, sizeof(pthread_mutex_t));
-	if (!table->ids || !table->philos || !table->forks)
+	table->forks_state = ft_calloc(philos_num, sizeof(char));
+	if (!table->ids || !table->philos || !table->forks || !table->forks_state)
 		return (cleanup(table), NULL);
 	pthread_mutex_init(&table->start, NULL);
 	pthread_mutex_lock(&table->start);
