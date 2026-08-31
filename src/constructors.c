@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/08/24 20:37:53 by becanals         ###   ########.fr       */
+/*   Updated: 2026/08/30 20:15:12 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int create_philos(t_table *table);
 static t_philo	*create_one_philo(int i, t_table *table);
 
-t_table	*create_table(int philos_num)
+t_table	*create_table(int params[])
 {
 	t_table	*table;
 
@@ -25,15 +25,19 @@ t_table	*create_table(int philos_num)
 	table->ini_t = ft_calloc(1, sizeof(struct timeval));
 	if (!table->ini_t)
 		return (cleanup(table), NULL);
-	table->ids = ft_calloc(philos_num, sizeof(pthread_t));
-	table->philos = ft_calloc(philos_num + 1, sizeof(t_philo));
-	table->forks = ft_calloc(philos_num, sizeof(pthread_mutex_t));
-	table->forks_state = ft_calloc(philos_num, sizeof(char));
+	table->ids = ft_calloc(params[0], sizeof(pthread_t));
+	table->philos = ft_calloc(params[0] + 1, sizeof(t_philo));
+	table->forks = ft_calloc(params[0], sizeof(pthread_mutex_t));
+	table->forks_state = ft_calloc(params[0], sizeof(char));
 	if (!table->ids || !table->philos || !table->forks || !table->forks_state)
 		return (cleanup(table), NULL);
 	pthread_mutex_init(&table->start, NULL);
 	pthread_mutex_lock(&table->start);
-	table->philos_num = philos_num;
+	table->philos_num = params[0];
+	table->time_to_die = params[1];
+	table->time_to_eat = params[2];
+	table->time_to_sleep = params[3];
+	table->eating_times = params[4];
 	table->status = LIVE;
 	if (!create_philos(table))
 			return (cleanup(table), NULL);

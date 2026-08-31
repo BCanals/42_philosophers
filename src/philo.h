@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/08/24 20:40:23 by becanals         ###   ########.fr       */
+/*   Updated: 2026/08/30 20:13:52 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <errno.h>
 
 # define EAT 0
 # define SLEEP 1
@@ -45,9 +46,10 @@ typedef struct s_philo
 typedef struct s_table
 {
 	int				philos_num;
-	unsigned int	time_to_die;
-	unsigned int	time_to_eat;
-	unsigned int	time_to_sleep;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				eating_times;
 	int				status;
 	pthread_t		*ids;
 	struct timeval	*ini_t;
@@ -63,7 +65,7 @@ void			*ft_calloc(size_t nmemb, size_t size);
 unsigned int	elapsed(t_philo *philo);
 void			cleanup(t_table *table);
 
-t_table			*create_table(int philos_num);
+t_table			*create_table(int params[]);
 
 void			ph_behave(t_philo *me);
 void			ft_sleep(t_philo *me);

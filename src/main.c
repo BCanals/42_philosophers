@@ -6,39 +6,93 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/08/24 20:08:18 by becanals         ###   ########.fr       */
+/*   Updated: 2026/08/30 20:26:15 by bizcru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_table	*init_table(int philos_num);
-t_philo	*philo_creator(int i, t_table *table);
+int	parser(int argc, char **argv, int params[]);
+int	is_only_nums(char *str);
+int	my_atoi(char *str);
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_table	*table;
 	int		i;
 	int		philos_num;
+	int		params[5];
 
-	//printf("_____ BUILDING...  _______\n");
-	philos_num = 10;
-	table = create_table(philos_num);
+
+	if (!parser(argc, argv, params))
+		return (1);
+	if (argc == 6 && params[4] == 0)
+		return (0);
+	table = create_table(params);
 	if (table == NULL)
 		return (1);
 	i = -1;
 	while (++i < philos_num)
 		pthread_create(&table->ids[i], NULL, (void *)&ph_behave, table->philos[i]);
-	i = -1;
-	table->time_to_eat = 5000;
-	table->time_to_die = 15000;
 	gettimeofday(table->ini_t, NULL);
-	printf("______ START ! _____\n");
 	pthread_mutex_unlock(&table->start);
+	i = -1;
 	while (++i < philos_num)
 		pthread_join(table->ids[i], NULL);
-	printf("THE END\n");
 	cleanup(table);
 	return (0);
 }
 
+int	parser(int argc, char **argv, int params[])
+{
+	if (argc < 5 || argc > 6)
+	{
+		printf("Error: wrong number of args.\n"
+				"Usage: %s number_of_philosophers time_to_die time_to_eat "
+				"time_to_sleep [number_of_times_each_philosopher_must_eat]\n\n"
+				"Note: all times are taken in miliseconds", argv[0]);
+		return (0);
+	}
+	params[4] = 0;
+	while (--argc > 0)
+	{
+		if (!is_only_nums(argv[argc]))
+		{
+			printf("Error: the args must be numerical chars only.\n");
+			return (0);
+		}
+		params[argc - 1] = my_atoi(argv[argc]);
+		if (!params[argc - 1] && errno == ERANGE)
+		{
+			printf("Error: Overflow detected while parsing args.\n");
+			return (0);
+		}
+	}
+	return (1);
+}
+
+int	is_only_nums(char *str)
+{
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+int my_atoi(char *str)
+{
+	int	ret;
+
+	ret = 0;
+	while (*str)
+	{
+		ret += *str - '0';
+		str++;
+	}
+	return (ret);
+}
