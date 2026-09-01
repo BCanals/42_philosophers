@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/01 19:59:41 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/01 22:16:10 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,15 @@ int	main(int argc, char **argv)
 	table = create_table(params);
 	if (table == NULL)
 		return (1);
-	printf("philos_num: %d\n", table->philos_num);
-	printf("time_to_die: %d\n", table->time_to_die);
-	printf("time_to_eat: %d\n", table->time_to_eat);
-	printf("time_to_sleep: %d\n", table->time_to_sleep);
-	printf("eating_times: %d\n", table->eating_times);
 	i = -1;
+	pthread_create(&table->checker, NULL, (void *)&ft_checker, &table);
 	while (++i < params[0])
 		pthread_create(&table->ids[i], NULL, (void *)&ph_behave,
 			table->philos[i]);
 	gettimeofday(table->ini_t, NULL);
 	pthread_mutex_unlock(&table->start);
 	i = -1;
+	pthread_join(table->checker, NULL);
 	while (++i < params[0])
 		pthread_join(table->ids[i], NULL);
 	cleanup(table);

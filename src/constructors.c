@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/01 20:00:13 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/01 21:32:14 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_table	*create_table(int params[])
 	table->time_to_die = params[1] * 1000 ;
 	table->time_to_eat = params[2] * 1000;
 	table->time_to_sleep = params[3] * 1000;
-	table->eating_times = params[4] * 1000;
+	table->eat_times = params[4];
 	table->status = LIVE;
 	if (!create_philos(table))
 		return (cleanup(table), NULL);
@@ -54,8 +54,8 @@ static int	create_philos(t_table *table)
 		table->philos[i] = create_one_philo(i, table);
 		if (!table->philos[i])
 			return (0);
-		if (i % 2)
-			table->philos[i]->action = THINK;
+		if (!(i % 2))
+			table->philos[i]->action = DELAY;
 	}
 	return (1);
 }
@@ -67,10 +67,12 @@ static t_philo	*create_one_philo(int i, t_table *table)
 	philo = ft_calloc(1, sizeof(t_philo));
 	if (!philo)
 		return (NULL);
-	philo->my_time = ft_calloc(1, sizeof(struct timeval));
+	philo->eaten = 0;
 	philo->acts[EAT] = &ft_eat;
 	philo->acts[SLEEP] = &ft_sleep;
 	philo->acts[THINK] = &ft_think;
+	philo->acts[DELAY] = &ft_delay;
+	philo->action = THINK;
 	philo->id = i;
 	philo->table = table;
 	return (philo);

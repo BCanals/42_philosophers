@@ -6,13 +6,14 @@
 #    By: becanals <becanals@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/14 17:15:47 by becanals          #+#    #+#              #
-#    Updated: 2026/09/01 20:11:53 by becanals         ###   ########.fr        #
+#    Updated: 2026/09/01 22:15:51 by becanals         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC_NAMES = main.c utils_mem.c utils_time.c philo_life.c constructors.c
+SRC_NAMES = main.c utils_mem.c utils_time.c philo_life.c constructors.c \
+			checker.c
 SRC_DIR = src
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_NAMES))
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -20,7 +21,7 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 BUILD_DIR = build
 
 HDER = $(SRC_DIR)/philo.h
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 CC = cc
 
 END = \033[m

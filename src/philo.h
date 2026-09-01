@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/01 19:36:02 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/01 21:54:39 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define EAT 0
 # define SLEEP 1
 # define THINK 2
+# define DELAY 3
+# define PH_STOP 4
 
 # define LIVE 1
 # define STOP 0
@@ -37,8 +39,9 @@ typedef struct s_philo
 {
 	int				id;
 	struct timeval	*my_time;
+	int				eaten;
 	int				action;
-	t_action		acts[3];
+	t_action		acts[4];
 	struct s_table	*table;
 
 }				t_philo;
@@ -49,9 +52,10 @@ typedef struct s_table
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				eating_times;
+	int				eat_times;
 	int				status;
 	pthread_t		*ids;
+	pthread_t		checker;
 	struct timeval	*ini_t;
 	t_philo			**philos;
 	pthread_mutex_t	start;
@@ -62,6 +66,7 @@ typedef struct s_table
 typedef pthread_mutex_t	t_mut;
 
 void			*ft_calloc(size_t nmemb, size_t size);
+
 unsigned int	elapsed(t_philo *philo);
 void			cleanup(t_table *table);
 
@@ -71,5 +76,8 @@ void			ph_behave(t_philo *me);
 void			ft_sleep(t_philo *me);
 void			ft_think(t_philo *me);
 void			ft_eat(t_philo *me);
+void			ft_delay(t_philo *me);
+
+void			ft_checker(t_table *table);
 
 #endif
