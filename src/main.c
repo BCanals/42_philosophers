@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/08/30 20:26:15 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/09/01 19:59:41 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	main(int argc, char **argv)
 {
 	t_table	*table;
 	int		i;
-	int		philos_num;
 	int		params[5];
-
 
 	if (!parser(argc, argv, params))
 		return (1);
@@ -31,13 +29,19 @@ int	main(int argc, char **argv)
 	table = create_table(params);
 	if (table == NULL)
 		return (1);
+	printf("philos_num: %d\n", table->philos_num);
+	printf("time_to_die: %d\n", table->time_to_die);
+	printf("time_to_eat: %d\n", table->time_to_eat);
+	printf("time_to_sleep: %d\n", table->time_to_sleep);
+	printf("eating_times: %d\n", table->eating_times);
 	i = -1;
-	while (++i < philos_num)
-		pthread_create(&table->ids[i], NULL, (void *)&ph_behave, table->philos[i]);
+	while (++i < params[0])
+		pthread_create(&table->ids[i], NULL, (void *)&ph_behave,
+			table->philos[i]);
 	gettimeofday(table->ini_t, NULL);
 	pthread_mutex_unlock(&table->start);
 	i = -1;
-	while (++i < philos_num)
+	while (++i < params[0])
 		pthread_join(table->ids[i], NULL);
 	cleanup(table);
 	return (0);
@@ -48,9 +52,9 @@ int	parser(int argc, char **argv, int params[])
 	if (argc < 5 || argc > 6)
 	{
 		printf("Error: wrong number of args.\n"
-				"Usage: %s number_of_philosophers time_to_die time_to_eat "
-				"time_to_sleep [number_of_times_each_philosopher_must_eat]\n\n"
-				"Note: all times are taken in miliseconds", argv[0]);
+			"Usage: %s number_of_philosophers time_to_die time_to_eat "
+			"time_to_sleep [number_of_times_each_philosopher_must_eat]\n\n"
+			"Note: all times are taken in miliseconds", argv[0]);
 		return (0);
 	}
 	params[4] = 0;
@@ -84,13 +88,14 @@ int	is_only_nums(char *str)
 	return (1);
 }
 
-int my_atoi(char *str)
+int	my_atoi(char *str)
 {
 	int	ret;
 
 	ret = 0;
 	while (*str)
 	{
+		ret *= 10;
 		ret += *str - '0';
 		str++;
 	}

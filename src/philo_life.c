@@ -6,13 +6,11 @@
 /*   By: becanals <becanals@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 19:21:29 by becanals          #+#    #+#             */
-/*   Updated: 2026/08/24 20:08:29 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/01 19:31:56 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-	//usleep(1500000);
 
 void	ph_behave(t_philo *me)
 {

@@ -6,13 +6,13 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/08/30 20:15:12 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/09/01 20:00:13 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int create_philos(t_table *table);
+static int		create_philos(t_table *table);
 static t_philo	*create_one_philo(int i, t_table *table);
 
 t_table	*create_table(int params[])
@@ -34,17 +34,17 @@ t_table	*create_table(int params[])
 	pthread_mutex_init(&table->start, NULL);
 	pthread_mutex_lock(&table->start);
 	table->philos_num = params[0];
-	table->time_to_die = params[1];
-	table->time_to_eat = params[2];
-	table->time_to_sleep = params[3];
-	table->eating_times = params[4];
+	table->time_to_die = params[1] * 1000 ;
+	table->time_to_eat = params[2] * 1000;
+	table->time_to_sleep = params[3] * 1000;
+	table->eating_times = params[4] * 1000;
 	table->status = LIVE;
 	if (!create_philos(table))
-			return (cleanup(table), NULL);
+		return (cleanup(table), NULL);
 	return (table);
 }
 
-static int create_philos(t_table *table)
+static int	create_philos(t_table *table)
 {
 	int	i;
 

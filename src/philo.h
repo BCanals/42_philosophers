@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/08/30 20:13:52 by bizcru           ###   ########.fr       */
+/*   Updated: 2026/09/01 19:36:02 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 # define FREE 1
 # define TAKEN 0
 
-typedef struct s_philo t_philo;
+typedef struct s_philo	t_philo;
 
-typedef void (*t_action)(t_philo *);
+typedef void			(*t_action)(t_philo *);
 
 typedef struct s_philo
 {
@@ -56,7 +56,7 @@ typedef struct s_table
 	t_philo			**philos;
 	pthread_mutex_t	start;
 	pthread_mutex_t	*forks;
-	char		*forks_state;
+	char			*forks_state;
 }				t_table;
 
 typedef pthread_mutex_t	t_mut;
