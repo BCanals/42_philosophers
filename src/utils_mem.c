@@ -6,7 +6,7 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:13:14 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/09/01 21:53:26 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/03 20:10:30 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	cleanup(t_table *table)
 	i = -1;
 	while (table->philos[++i])
 	{
-		free(table->philos[i]->my_time);
+		free(table->philos[i]->ate);
 		free(table->philos[i]);
 	}
 	free(table->philos);

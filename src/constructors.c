@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/01 21:32:14 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/03 21:13:57 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ t_table	*create_table(int params[])
 	pthread_mutex_init(&table->start, NULL);
 	pthread_mutex_lock(&table->start);
 	table->philos_num = params[0];
-	table->time_to_die = params[1] * 1000 ;
-	table->time_to_eat = params[2] * 1000;
-	table->time_to_sleep = params[3] * 1000;
+	table->time_to_die = params[1];
+	table->time_to_eat = params[2];
+	table->time_to_sleep = params[3];
 	table->eat_times = params[4];
 	table->status = LIVE;
 	if (!create_philos(table))

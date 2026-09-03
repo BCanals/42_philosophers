@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/01 22:16:10 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/03 20:56:20 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	main(int argc, char **argv)
 	if (table == NULL)
 		return (1);
 	i = -1;
-	pthread_create(&table->checker, NULL, (void *)&ft_checker, &table);
 	while (++i < params[0])
-		pthread_create(&table->ids[i], NULL, (void *)&ph_behave,
+		pthread_create(&table->ids[i], NULL, ph_behave,
 			table->philos[i]);
 	gettimeofday(table->ini_t, NULL);
 	pthread_mutex_unlock(&table->start);
+	pthread_create(&table->checker, NULL, (void *)&ft_checker, table);
 	i = -1;
 	pthread_join(table->checker, NULL);
 	while (++i < params[0])

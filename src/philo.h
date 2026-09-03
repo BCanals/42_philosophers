@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/01 21:54:39 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/03 20:33:12 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef void			(*t_action)(t_philo *);
 typedef struct s_philo
 {
 	int				id;
-	struct timeval	*my_time;
+	struct timeval	*ate;
 	int				eaten;
 	int				action;
 	t_action		acts[4];
@@ -68,11 +68,12 @@ typedef pthread_mutex_t	t_mut;
 void			*ft_calloc(size_t nmemb, size_t size);
 
 unsigned int	elapsed(t_philo *philo);
+int				starved(t_philo *philo, struct timeval *now);
 void			cleanup(t_table *table);
 
 t_table			*create_table(int params[]);
 
-void			ph_behave(t_philo *me);
+void			*ph_behave(void *me);
 void			ft_sleep(t_philo *me);
 void			ft_think(t_philo *me);
 void			ft_eat(t_philo *me);
