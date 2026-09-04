@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 19:21:29 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/04 21:39:08 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 22:08:09 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	*ph_behave(void *arg)
 
 void	ft_eat(t_philo *me)
 {
+	pthread_mutex_lock(&me->ate_m);
 	gettimeofday(me->ate, NULL);
+	pthread_mutex_unlock(&me->ate_m);
 	my_printf("is eating\n", elapsed(me), me);
 	isleep(me, me->table->time_to_eat);
 	pthread_mutex_lock(&me->table->forks[me->id]);
