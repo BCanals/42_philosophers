@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 21:44:25 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/04 21:37:25 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 22:23:31 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void	ft_checker(t_table *table)
 				break ;
 			}
 		}
+		usleep(500);
 	}
 }

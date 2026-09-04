@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 19:21:29 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/04 22:08:09 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 22:40:59 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	take_fork(t_philo *me, int id)
 			return (1);
 		}
 		pthread_mutex_unlock(&me->table->forks[id]);
+		usleep(500);
 	}
 	return (0);
 }
@@ -97,7 +98,7 @@ void	ft_think(t_philo *me)
 		else
 			return ;
 	}
-	pthread_mutex_lock(&me->table->philos_m[me->id]);
+	pthread_mutex_lock(&me->action_m);
 	me->action = EAT;
-	pthread_mutex_unlock(&me->table->philos_m[me->id]);
+	pthread_mutex_unlock(&me->action_m);
 }
