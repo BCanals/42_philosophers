@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/04 20:19:08 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 21:30:54 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void		load_params(t_table *table, int params[]);
 static int		create_philos(t_table *table);
 static t_philo	*create_one_philo(int i, t_table *table);
+static void		init_mutexes(t_table *table);
 
 t_table	*create_table(int params[])
 {
@@ -35,6 +36,7 @@ t_table	*create_table(int params[])
 		|| !table->philos_m)
 		return (cleanup(table), NULL);
 	load_params(table, params);
+	init_mutexes(table);
 	pthread_mutex_lock(&table->status_m);
 	table->status = LIVE;
 	pthread_mutex_unlock(&table->status_m);
@@ -52,6 +54,21 @@ static void	load_params(t_table *table, int params[])
 	table->eat_times = params[4];
 }
 
+static void	init_mutexes(t_table *table)
+{
+	int	i;
+
+	pthread_mutex_init(&table->status_m, NULL);
+	pthread_mutex_init(&table->start, NULL);
+	pthread_mutex_init(&table->print, NULL);
+	i = -1;
+	while (++i < table->philos_num)
+	{
+		pthread_mutex_init(&table->forks[i], NULL);
+		pthread_mutex_init(&table->philos_m[i], NULL);
+	}
+}
+
 static int	create_philos(t_table *table)
 {
 	int	i;
@@ -65,7 +82,6 @@ static int	create_philos(t_table *table)
 		if (!(i % 2))
 			table->philos[i]->action = DELAY;
 	}
-	pthread_mutex_init(&table->start, NULL);
 	pthread_mutex_lock(&table->start);
 	return (1);
 }
@@ -79,11 +95,7 @@ static t_philo	*create_one_philo(int i, t_table *table)
 		return (NULL);
 	philo->ate = ft_calloc(1, sizeof(struct timeval));
 	if (!philo->ate)
-	{
-		free(philo);
-		return (NULL);
-	}
-	philo->eaten = 0;
+		return (free(philo), NULL);
 	philo->acts[EAT] = &ft_eat;
 	philo->acts[SLEEP] = &ft_sleep;
 	philo->acts[THINK] = &ft_think;
@@ -91,6 +103,8 @@ static t_philo	*create_one_philo(int i, t_table *table)
 	philo->action = THINK;
 	philo->id = i;
 	philo->table = table;
+	pthread_mutex_init(&philo->ate_m, NULL);
+	pthread_mutex_init(&philo->action_m, NULL);
 	if (philo->id == 0)
 		philo->my_fork = philo->table->philos_num - 1;
 	else

@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 21:44:25 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/04 20:57:22 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 21:37:25 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	kill_ph(t_philo *philo)
 	pthread_mutex_lock(&philo->table->philos_m[philo->id]);
 	philo->action = PH_STOP;
 	pthread_mutex_unlock(&philo->table->philos_m[philo->id]);
-	printf("%i %i died\n", elapsed(philo), philo->id);
+	my_printf("died\n", elapsed(philo), philo);
 }
 
 void	ft_checker(t_table *table)

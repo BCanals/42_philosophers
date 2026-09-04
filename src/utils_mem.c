@@ -6,7 +6,7 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:13:14 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/09/04 20:59:55 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 21:29:46 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,24 @@ void	cleanup(t_table *table)
 
 	if (!table)
 		return ;
+	i = -1;
+	while (table->philos[++i])
+	{
+		pthread_mutex_destroy(&table->forks[i]);
+		pthread_mutex_destroy(&table->philos_m[i]);
+		pthread_mutex_destroy(&table->philos[i]->ate_m);
+		pthread_mutex_destroy(&table->philos[i]->action_m);
+		free(table->philos[i]->ate);
+		free(table->philos[i]);
+	}
+	pthread_mutex_destroy(&table->start);
+	pthread_mutex_destroy(&table->status_m);
+	pthread_mutex_destroy(&table->print);
 	free(table->ids);
 	free(table->ini_t);
 	free(table->forks);
 	free(table->forks_s);
 	free(table->philos_m);
-	i = -1;
-	while (table->philos[++i])
-	{
-		free(table->philos[i]->ate);
-		free(table->philos[i]);
-	}
 	free(table->philos);
-	pthread_mutex_destroy(&(table->start));
 	free(table);
 }

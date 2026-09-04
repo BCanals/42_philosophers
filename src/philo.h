@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/04 20:43:42 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 21:40:51 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_table
 	struct timeval	*ini_t;
 	t_philo			**philos;
 	pthread_mutex_t	start;
+	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;
 	char			*forks_s;
 	pthread_mutex_t	*philos_m;
@@ -78,6 +79,7 @@ long			time_diff(struct timeval *start, struct timeval *end);
 void			time_add(struct timeval *time, int ms);
 int				get_my_action(t_philo *me);
 int				is_sim_live(t_table *table);
+void			my_printf(char *msg, int elaps, t_philo *philo);
 
 int				starved(t_philo *philo, struct timeval *now);
 void			cleanup(t_table *table);
