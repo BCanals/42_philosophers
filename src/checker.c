@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 21:44:25 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/03 21:17:16 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:57:22 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 void	kill_ph(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->table->status_m);
 	philo->table->status = STOP;
+	pthread_mutex_unlock(&philo->table->status_m);
+	pthread_mutex_lock(&philo->table->philos_m[philo->id]);
 	philo->action = PH_STOP;
+	pthread_mutex_unlock(&philo->table->philos_m[philo->id]);
 	printf("%i %i died\n", elapsed(philo), philo->id);
 }
 
 void	ft_checker(t_table *table)
 {
-	struct	timeval time;
-	int		i;
+	struct timeval	time;
+	int				i;
 
-	printf("time_to_die = %i\n", table->time_to_die);
 	pthread_mutex_lock(&table->start);
 	pthread_mutex_unlock(&table->start);
-	while (table->status == LIVE)
+	while (is_sim_live(table))
 	{
 		gettimeofday(&time, NULL);
 		i = -1;
@@ -36,7 +39,7 @@ void	ft_checker(t_table *table)
 			if (starved(table->philos[i], &time) >= table->time_to_die)
 			{
 				kill_ph(table->philos[i]);
-				break;
+				break ;
 			}
 		}
 	}

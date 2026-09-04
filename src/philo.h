@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/03 20:33:12 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:43:42 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define LIVE 1
 # define STOP 0
 
-# define FREE 1
-# define TAKEN 0
+# define FREE 0
+# define TAKEN 1
 
 typedef struct s_philo	t_philo;
 
@@ -38,9 +38,12 @@ typedef void			(*t_action)(t_philo *);
 typedef struct s_philo
 {
 	int				id;
+	int				my_fork;
 	struct timeval	*ate;
+	pthread_mutex_t	ate_m;
 	int				eaten;
 	int				action;
+	pthread_mutex_t	action_m;
 	t_action		acts[4];
 	struct s_table	*table;
 
@@ -54,20 +57,28 @@ typedef struct s_table
 	int				time_to_sleep;
 	int				eat_times;
 	int				status;
+	pthread_mutex_t	status_m;
 	pthread_t		*ids;
 	pthread_t		checker;
 	struct timeval	*ini_t;
 	t_philo			**philos;
 	pthread_mutex_t	start;
 	pthread_mutex_t	*forks;
-	char			*forks_state;
+	char			*forks_s;
+	pthread_mutex_t	*philos_m;
 }				t_table;
 
 typedef pthread_mutex_t	t_mut;
 
 void			*ft_calloc(size_t nmemb, size_t size);
 
+void			isleep(t_philo *philo, int time);
 unsigned int	elapsed(t_philo *philo);
+long			time_diff(struct timeval *start, struct timeval *end);
+void			time_add(struct timeval *time, int ms);
+int				get_my_action(t_philo *me);
+int				is_sim_live(t_table *table);
+
 int				starved(t_philo *philo, struct timeval *now);
 void			cleanup(t_table *table);
 

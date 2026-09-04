@@ -6,7 +6,7 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:13:14 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/09/03 20:10:30 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:59:55 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	cleanup(t_table *table)
 	free(table->ids);
 	free(table->ini_t);
 	free(table->forks);
-	free(table->forks_state);
+	free(table->forks_s);
+	free(table->philos_m);
 	i = -1;
 	while (table->philos[++i])
 	{

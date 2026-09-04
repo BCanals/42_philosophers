@@ -6,7 +6,7 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:28:09 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/09/03 21:58:34 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:44:22 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ unsigned int	elapsed(t_philo *philo)
 
 int	starved(t_philo *philo, struct timeval *now)
 {
-	int	sec;
-	int	msec;
+	int				sec;
+	int				msec;
 	struct timeval	*ini;
 
+	pthread_mutex_lock(&philo->ate_m);
 	ini = philo->ate;
 	sec = now->tv_sec - ini->tv_sec;
 	msec = (now->tv_usec - ini->tv_usec) / 1000;
@@ -49,7 +50,31 @@ int	starved(t_philo *philo, struct timeval *now)
 		sec--;
 		msec += 1000;
 	}
+	pthread_mutex_unlock(&philo->ate_m);
 	sec *= 1000;
 	msec += sec;
 	return (msec);
+}
+
+void	ft_delay(t_philo *me)
+{
+	usleep(500);
+	pthread_mutex_lock(&me->action_m);
+	me->action = THINK;
+	pthread_mutex_unlock(&me->action_m);
+}
+
+void	isleep(t_philo *philo, int time)
+{
+	struct timeval	now;
+	struct timeval	alarm;
+
+	gettimeofday(&alarm, NULL);
+	time_add(&alarm, time);
+	gettimeofday(&now, NULL);
+	while (time_diff(&now, &alarm) > 0 && is_sim_live(philo->table))
+	{
+		usleep(1000);
+		gettimeofday(&now, NULL);
+	}
 }

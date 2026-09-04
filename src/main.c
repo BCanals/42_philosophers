@@ -6,15 +6,16 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/03 20:56:20 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:57:57 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	parser(int argc, char **argv, int params[]);
-int	is_only_nums(char *str);
-int	my_atoi(char *str);
+static int	parser(int argc, char **argv, int params[]);
+static int	is_only_nums(char *str);
+static int	my_atoi(char *str);
+static void	set_philos_start_time(t_table *table);
 
 int	main(int argc, char **argv)
 {
@@ -24,8 +25,6 @@ int	main(int argc, char **argv)
 
 	if (!parser(argc, argv, params))
 		return (1);
-	if (argc == 6 && params[4] == 0)
-		return (0);
 	table = create_table(params);
 	if (table == NULL)
 		return (1);
@@ -34,10 +33,11 @@ int	main(int argc, char **argv)
 		pthread_create(&table->ids[i], NULL, ph_behave,
 			table->philos[i]);
 	gettimeofday(table->ini_t, NULL);
+	set_philos_start_time(table);
 	pthread_mutex_unlock(&table->start);
 	pthread_create(&table->checker, NULL, (void *)&ft_checker, table);
-	i = -1;
 	pthread_join(table->checker, NULL);
+	i = -1;
 	while (++i < params[0])
 		pthread_join(table->ids[i], NULL);
 	cleanup(table);
@@ -97,4 +97,17 @@ int	my_atoi(char *str)
 		str++;
 	}
 	return (ret);
+}
+
+void	set_philos_start_time(t_table *table)
+{
+	int		i;
+	t_philo	*me;
+
+	i = -1;
+	while (++i < table->philos_num)
+	{
+		me = table->philos[i];
+		*(me->ate) = *(table->ini_t);
+	}
 }
