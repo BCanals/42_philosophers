@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/04 21:30:54 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/07 19:39:56 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ static int	create_philos(t_table *table)
 		table->philos[i] = create_one_philo(i, table);
 		if (!table->philos[i])
 			return (0);
+		pthread_mutex_init(&table->philos[i]->ate_m, NULL);
+		pthread_mutex_init(&table->philos[i]->action_m, NULL);
 		if (!(i % 2))
 			table->philos[i]->action = DELAY;
 	}
@@ -88,26 +90,28 @@ static int	create_philos(t_table *table)
 
 static t_philo	*create_one_philo(int i, t_table *table)
 {
-	t_philo	*philo;
+	t_philo	*me;
 
-	philo = ft_calloc(1, sizeof(t_philo));
-	if (!philo)
+	me = ft_calloc(1, sizeof(t_philo));
+	if (!me)
 		return (NULL);
-	philo->ate = ft_calloc(1, sizeof(struct timeval));
-	if (!philo->ate)
-		return (free(philo), NULL);
-	philo->acts[EAT] = &ft_eat;
-	philo->acts[SLEEP] = &ft_sleep;
-	philo->acts[THINK] = &ft_think;
-	philo->acts[DELAY] = &ft_delay;
-	philo->action = THINK;
-	philo->id = i;
-	philo->table = table;
-	pthread_mutex_init(&philo->ate_m, NULL);
-	pthread_mutex_init(&philo->action_m, NULL);
-	if (philo->id == 0)
-		philo->my_fork = philo->table->philos_num - 1;
+	me->ate = ft_calloc(1, sizeof(struct timeval));
+	if (!me->ate)
+		return (free(me), NULL);
+	me->acts[EAT] = &ft_eat;
+	me->acts[SLEEP] = &ft_sleep;
+	me->acts[THINK] = &ft_think;
+	me->acts[DELAY] = &ft_delay;
+	me->action = THINK;
+	me->id = i;
+	me->table = table;
+	me->fork_a = me->id;
+	me->fork_b = me->id;
+	if (me->id % 2)
+		me->fork_b --;
 	else
-		philo->my_fork = philo->id - 1;
-	return (philo);
+		me->fork_a --;
+	if (me->id == 0)
+		me->fork_a = me->table->philos_num - 1;
+	return (me);
 }

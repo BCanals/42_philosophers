@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/04 21:40:51 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/07 19:38:42 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define FREE 0
 # define TAKEN 1
 
+# define ONCE 1
+# define LOOP 0
+
 typedef struct s_philo	t_philo;
 
 typedef void			(*t_action)(t_philo *);
@@ -38,7 +41,8 @@ typedef void			(*t_action)(t_philo *);
 typedef struct s_philo
 {
 	int				id;
-	int				my_fork;
+	int				fork_a;
+	int				fork_b;
 	struct timeval	*ate;
 	pthread_mutex_t	ate_m;
 	int				eaten;

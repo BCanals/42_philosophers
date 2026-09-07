@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 19:21:29 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/04 22:40:59 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/07 19:39:04 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	ft_eat(t_philo *me)
 	pthread_mutex_unlock(&me->ate_m);
 	my_printf("is eating\n", elapsed(me), me);
 	isleep(me, me->table->time_to_eat);
-	pthread_mutex_lock(&me->table->forks[me->id]);
-	me->table->forks_s[me->id] = FREE;
-	pthread_mutex_unlock(&me->table->forks[me->id]);
-	pthread_mutex_lock(&me->table->forks[me->my_fork]);
-	me->table->forks_s[me->my_fork] = FREE;
-	pthread_mutex_unlock(&me->table->forks[me->my_fork]);
+	pthread_mutex_lock(&me->table->forks[me->fork_a]);
+	me->table->forks_s[me->fork_a] = FREE;
+	pthread_mutex_unlock(&me->table->forks[me->fork_a]);
+	pthread_mutex_lock(&me->table->forks[me->fork_b]);
+	me->table->forks_s[me->fork_b] = FREE;
+	pthread_mutex_unlock(&me->table->forks[me->fork_b]);
 	me->eaten++;
 	pthread_mutex_lock(&me->table->philos_m[me->id]);
 	me->action = SLEEP;
@@ -60,8 +60,9 @@ void	ft_sleep(t_philo *me)
 	pthread_mutex_unlock(&me->table->philos_m[me->id]);
 }
 
-int	take_fork(t_philo *me, int id)
+int	take_fork(t_philo *me, int id, int once)
 {
+	
 	while (is_sim_live(me->table))
 	{
 		pthread_mutex_lock(&me->table->forks[id]);
@@ -69,10 +70,13 @@ int	take_fork(t_philo *me, int id)
 		{
 			me->table->forks_s[id] = TAKEN;
 			pthread_mutex_unlock(&me->table->forks[id]);
+			my_printf("has taken a fork\n", elapsed(me), me);
 			return (1);
 		}
 		pthread_mutex_unlock(&me->table->forks[id]);
-		usleep(500);
+		usleep(1000);
+		if (once)
+			return (0);
 	}
 	return (0);
 }
@@ -80,24 +84,20 @@ int	take_fork(t_philo *me, int id)
 void	ft_think(t_philo *me)
 {
 	my_printf("is thinking\n", elapsed(me), me);
-	if (me->id % 2)
+
+	int	a_taken;
+	int b_taken;
+
+	b_taken = 0;
+	a_taken = take_fork(me, me->fork_a, ONCE);
+	if (!a_taken)
 	{
-		if (take_fork(me, me->id))
-			my_printf("has taken a fork\n", elapsed(me), me);
-		else
+		b_taken = take_fork(me, me->fork_b, ONCE);
+		if (!take_fork(me, me->fork_a, LOOP))
 			return ;
 	}
-	if (take_fork(me, me->my_fork))
-		my_printf("has taken a fork\n", elapsed(me), me);
-	else
-		return ;
-	if (!(me->id % 2))
-	{
-		if (take_fork(me, me->id))
-			my_printf("has taken a fork\n", elapsed(me), me);
-		else
-			return ;
-	}
+	if (!b_taken)
+		take_fork(me, me->fork_b, LOOP);
 	pthread_mutex_lock(&me->action_m);
 	me->action = EAT;
 	pthread_mutex_unlock(&me->action_m);
