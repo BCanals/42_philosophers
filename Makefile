@@ -6,7 +6,7 @@
 #    By: becanals <becanals@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/14 17:15:47 by becanals          #+#    #+#              #
-#    Updated: 2026/09/07 21:20:39 by becanals         ###   ########.fr        #
+#    Updated: 2026/09/07 21:45:40 by becanals         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 BUILD_DIR = build
 
 HDER = $(SRC_DIR)/philo.h
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
 CC = cc
 
 END = \033[m

@@ -6,11 +6,13 @@
 /*   By: becanals <becanals@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 19:21:29 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/07 21:18:17 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/07 21:45:45 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	ft_alone(t_philo *me);
 
 void	*ph_behave(void *arg)
 {
@@ -19,8 +21,10 @@ void	*ph_behave(void *arg)
 	me = (t_philo *)arg;
 	pthread_mutex_lock(&me->table->start);
 	pthread_mutex_unlock(&me->table->start);
-	pthread_mutex_lock(&me->ate_m);
-	pthread_mutex_unlock(&me->ate_m);
+	if (me->table->philos_num == 1)
+		return (ft_alone(me), NULL);
+	//pthread_mutex_lock(&me->ate_m);
+	//pthread_mutex_unlock(&me->ate_m);
 	while (is_sim_live(me->table) && get_my_action(me) != PH_STOP)
 		me->acts[me->action](me);
 	return (NULL);
@@ -66,4 +70,14 @@ void	ft_think(t_philo *me)
 	pthread_mutex_lock(&me->action_m);
 	me->action = EAT;
 	pthread_mutex_unlock(&me->action_m);
+}
+
+static void	ft_alone(t_philo *me)
+{
+	my_printf("is thinking\n", elapsed(me), me);
+	pthread_mutex_lock(&me->table->forks[me->fork_a]);
+	my_printf("has taken a fork\n", elapsed(me), me);
+	while (is_sim_live(me->table))
+		;
+	pthread_mutex_unlock(&me->table->forks[me->fork_a]);
 }
