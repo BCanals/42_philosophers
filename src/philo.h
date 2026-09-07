@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/07 19:38:42 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/07 21:19:06 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ typedef struct s_table
 	pthread_mutex_t	start;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;
-	char			*forks_s;
-	pthread_mutex_t	*philos_m;
 }				t_table;
 
 typedef pthread_mutex_t	t_mut;

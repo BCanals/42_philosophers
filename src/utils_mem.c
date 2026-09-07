@@ -6,7 +6,7 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:13:14 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/09/04 21:29:46 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/07 21:19:49 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	cleanup(t_table *table)
 	while (table->philos[++i])
 	{
 		pthread_mutex_destroy(&table->forks[i]);
-		pthread_mutex_destroy(&table->philos_m[i]);
 		pthread_mutex_destroy(&table->philos[i]->ate_m);
 		pthread_mutex_destroy(&table->philos[i]->action_m);
 		free(table->philos[i]->ate);
@@ -61,8 +60,6 @@ void	cleanup(t_table *table)
 	free(table->ids);
 	free(table->ini_t);
 	free(table->forks);
-	free(table->forks_s);
-	free(table->philos_m);
 	free(table->philos);
 	free(table);
 }

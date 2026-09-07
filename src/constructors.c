@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/07 19:39:56 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/07 21:19:34 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ t_table	*create_table(int params[])
 	table->ids = ft_calloc(params[0], sizeof(pthread_t));
 	table->philos = ft_calloc(params[0] + 1, sizeof(t_philo));
 	table->forks = ft_calloc(params[0], sizeof(pthread_mutex_t));
-	table->forks_s = ft_calloc(params[0], sizeof(char));
-	table->philos_m = ft_calloc(params[0], sizeof(pthread_mutex_t));
-	if (!table->ids || !table->philos || !table->forks || !table->forks_s
-		|| !table->philos_m)
+	if (!table->ids || !table->philos || !table->forks)
 		return (cleanup(table), NULL);
 	load_params(table, params);
 	init_mutexes(table);
@@ -58,15 +55,11 @@ static void	init_mutexes(t_table *table)
 {
 	int	i;
 
-	pthread_mutex_init(&table->status_m, NULL);
 	pthread_mutex_init(&table->start, NULL);
 	pthread_mutex_init(&table->print, NULL);
 	i = -1;
 	while (++i < table->philos_num)
-	{
 		pthread_mutex_init(&table->forks[i], NULL);
-		pthread_mutex_init(&table->philos_m[i], NULL);
-	}
 }
 
 static int	create_philos(t_table *table)
