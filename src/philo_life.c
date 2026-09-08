@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 19:21:29 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/07 21:45:45 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/08 19:24:59 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	*ph_behave(void *arg)
 	pthread_mutex_unlock(&me->table->start);
 	if (me->table->philos_num == 1)
 		return (ft_alone(me), NULL);
-	//pthread_mutex_lock(&me->ate_m);
-	//pthread_mutex_unlock(&me->ate_m);
 	while (is_sim_live(me->table) && get_my_action(me) != PH_STOP)
 		me->acts[me->action](me);
 	return (NULL);
