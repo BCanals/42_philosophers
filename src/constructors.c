@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/08 19:50:09 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/08 22:06:02 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,7 @@ static t_philo	*create_one_philo(int i, t_table *table)
 	me->id = i;
 	me->table = table;
 	me->fork_a = me->id;
-	me->fork_b = me->id;
-	if (me->id % 2)
-		me->fork_b --;
-	else
-		me->fork_a --;
+	me->fork_b = me->id -1;
 	if (me->id == 0)
 		me->fork_a = me->table->philos_num - 1;
 	return (me);
