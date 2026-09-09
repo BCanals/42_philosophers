@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 16:19:55 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/08 22:06:02 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/09 22:23:37 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_table	*create_table(int params[])
 	if (!table->ini_t)
 		return (cleanup(table), NULL);
 	table->ids = ft_calloc(params[0], sizeof(pthread_t));
-	table->philos = ft_calloc(params[0] + 1, sizeof(t_philo));
+	table->philos = ft_calloc(params[0] + 1, sizeof(t_philo *));
 	table->forks = ft_calloc(params[0], sizeof(pthread_mutex_t));
 	if (!table->ids || !table->philos || !table->forks)
 		return (cleanup(table), NULL);
@@ -99,8 +99,6 @@ static t_philo	*create_one_philo(int i, t_table *table)
 	me->id = i;
 	me->table = table;
 	me->fork_a = me->id;
-	me->fork_b = me->id -1;
-	if (me->id == 0)
-		me->fork_a = me->table->philos_num - 1;
+	me->fork_b = (me->id + 1) % me->table->philos_num;
 	return (me);
 }

@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 19:26:35 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/08 20:21:40 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/09 22:29:33 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ int	get_my_action(t_philo *me)
 
 void	my_printf(char *msg, int elaps, t_philo *philo)
 {
+	pthread_mutex_lock(&philo->table->print);
 	if (is_sim_live(philo->table))
-	{
-		pthread_mutex_lock(&philo->table->print);
 		printf("%i %i %s", elaps, philo->id + 1, msg);
-		pthread_mutex_unlock(&philo->table->print);
-	}
+	pthread_mutex_unlock(&philo->table->print);
 }

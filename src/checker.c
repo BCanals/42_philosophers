@@ -6,7 +6,7 @@
 /*   By: becanals <becanals@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 21:44:25 by becanals          #+#    #+#             */
-/*   Updated: 2026/09/07 21:35:23 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/09 22:31:46 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	ft_checker(t_table *table)
 		}
 		if (finished == table->philos_num)
 			kill_sim(table);
-		usleep(500);
+		usleep(1000);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bcanals- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:28:09 by bcanals-          #+#    #+#             */
-/*   Updated: 2026/09/07 20:52:23 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/09 22:40:19 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	starved(t_philo *philo, struct timeval *now)
 
 void	ft_delay(t_philo *me)
 {
-	usleep(50);
+	usleep(20000);
 	pthread_mutex_lock(&me->action_m);
-	me->action = THINK;
+	me->action = EAT;
 	pthread_mutex_unlock(&me->action_m);
 }
 

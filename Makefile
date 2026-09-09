@@ -6,7 +6,7 @@
 #    By: becanals <becanals@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/14 17:15:47 by becanals          #+#    #+#              #
-#    Updated: 2026/09/08 20:22:12 by becanals         ###   ########.fr        #
+#    Updated: 2026/09/09 22:47:37 by becanals         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,4 +60,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean bonus re
+.PHONY: all clean fclean re

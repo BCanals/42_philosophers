@@ -1,4 +1,4 @@
-_This project has been created as part of the 42 curriculum by becanals_
+_This project has been created as part of the 42 curriculum by becanals._
 
 
 # PHILOSOPHERS 
@@ -18,7 +18,25 @@ Each thread will go through three main states:
 
 If a philosopher dies, the simulation stops.
 
-## Instructions
+## Instructionsa
+
+### Instalation
+Just clone the repo
+
+### Compilation
+Execute the 'make' command. The Makefile will do the job for you.
+
+The executable will be created in the root of the repo and will be named 'philo'
+Object files will we created in a 'build' directory in the same repo. The directory will be created automatically if missing.
+
+The other rules for the Makefile are:
+
+ - make philo: synonim of just 'make'. Will create the necessary object files and compile the program.
+ - make clean: will remove the build directory containing the object files.
+ - make fclean: will delete the build directory and also the executable philo.
+ - make re: will call "make fclean" and "make" in sequence.
+
+### Executions
 The user is expected to set the number of philosophers (threads), time to die, time to eat and time to sleep.
 All time arguments are given in miliseconds.
 Additionally, the user may specify a number of meals. Once all philosophers have reached the specified number of meals, the simulation will stop. This argument is optional.
@@ -37,10 +55,13 @@ This code was highly inspired in my colleagues' projects:
 - [encarbassotnopot](https://github.com/encarbassotnopot/42_philosophers)
 
 ### Articles
-I also took some ideas and found helpful information in [this article](https://github.com/encarbassotnopot/42_philosophers)
+I also took some ideas and found helpful information in [this article](https://medium.com/@denaelgammal/dining-philosophers-problem-42-project-guide-mandatory-part-a20fb8dc530e)
+
+### Tutorials
+I started getting familiarized with threads and mutexes with [this tutorial](https://www.youtube.com/watch\?v\=d9s_d28yJq0\&list\=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
 
 ### AI
 AI was used only for debugging in a moment of deep desperation.
-Claude was given my code to help me identify why the philosophers kept dying whenever the number of threads was odd. This did not produce a direct solution but pointed me towards the desig issue that was blocking me.
+Claude was given my code to help me identify why the philosophers kept dying whenever the number of threads was odd. This did not produce a direct solution but pointed me towards the design issue that was blocking me.
 
 And also for a linguistic check of this README.
