@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 15:50:04 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/07 21:41:09 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/09 22:55:58 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <errno.h>
+# include <limits.h>
 
 # define EAT 0
 # define SLEEP 1

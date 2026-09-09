@@ -6,7 +6,7 @@
 /*   By: bizcru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 00:19:24 by bizcru            #+#    #+#             */
-/*   Updated: 2026/09/09 21:18:45 by becanals         ###   ########.fr       */
+/*   Updated: 2026/09/09 22:58:26 by becanals         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	parser(int argc, char **argv, int params[])
 			return (0);
 		}
 		params[argc - 1] = my_atoi(argv[argc]);
-		if (!params[argc - 1] && errno == ERANGE)
+		if (params[argc - 1] == -1)
 		{
 			printf("Error: Overflow detected while parsing args.\n");
 			return (0);
@@ -87,13 +87,15 @@ int	is_only_nums(char *str)
 
 int	my_atoi(char *str)
 {
-	int	ret;
+	double	ret;
 
 	ret = 0;
 	while (*str)
 	{
 		ret *= 10;
 		ret += *str - '0';
+		if (ret > INT_MAX)
+			return (-1);
 		str++;
 	}
 	return (ret);

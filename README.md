@@ -38,7 +38,7 @@ The other rules for the Makefile are:
 
 ### Executions
 The user is expected to set the number of philosophers (threads), time to die, time to eat and time to sleep.
-All time arguments are given in miliseconds.
+All time arguments are given in miliseconds. No value over INT_MAX will be allowed.
 Additionally, the user may specify a number of meals. Once all philosophers have reached the specified number of meals, the simulation will stop. This argument is optional.
 All arguments must contain numeric characters only.
 
